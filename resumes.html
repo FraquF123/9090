@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=360, height=600, initial-scale=1.0"> <!-- Установлено разрешение 360x600 -->
+    <title>Все Резюме</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px; /* Уменьшен отступ */
+        }
+        .resume {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 10px; /* Уменьшено внутреннее поле */
+            margin-bottom: 15px; /* Уменьшен нижний отступ */
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); /* Уменьшена тень */
+        }
+        .resume h2 {
+            color: #333;
+            font-size: 18px; /* Уменьшен размер заголовка */
+        }
+        .resume h3 {
+            color: #555;
+            font-size: 16px; /* Уменьшен размер подзаголовка */
+        }
+        .resume p {
+            font-size: 14px; /* Уменьшен размер текста */
+            margin: 5px 0; /* Уменьшен отступ */
+        }
+        .resume ul {
+            padding-left: 20px; /* Добавлен отступ для списка */
+        }
+        .resume ul li {
+            font-size: 14px; /* Уменьшен размер текста в списке */
+            margin-bottom: 5px; /* Уменьшен отступ между элементами списка */
+        }
+    </style>
+</head>
+<body>
+    <h1>Все Резюме</h1>
+    <div id="resumes-container"></div>
+    
+    <script>
+        // Загрузка резюме из локального хранилища
+        const resumes = JSON.parse(localStorage.getItem('resumes')) || [];
+        const container = document.getElementById('resumes-container');
+
+        resumes.forEach(resume => {
+            const resumeDiv = document.createElement('div');
+            resumeDiv.classList.add('resume');
+
+            resumeDiv.innerHTML = `
+                <h2>${resume.name}</h2>
+                <div>
+                    <h3>Контактная информация</h3>
+                    <p>Почта: ${resume.email}</p>
+                    <p>Телефон: ${resume.phone}</p>
+                    <p>Город: ${resume.city}</p>
+                </div>
+                <div>
+                    <h3>Навыки</h3>
+                    <ul>
+                        ${resume.skills.map(skill => `<li>${skill}</li>`).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h3>Опыт работы</h3>
+                    <p>${resume.experience}</p>
+                </div>
+                <div>
+                    <h3>Образование</h3>
+                    <p>${resume.education}</p>
+                </div>
+            `;
+            container.appendChild(resumeDiv);
+        });
+    </script>
+</body>
+</html>
